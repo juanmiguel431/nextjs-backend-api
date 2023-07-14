@@ -1,7 +1,27 @@
 import Head from 'next/head'
 import { NextPage } from 'next';
+import { FormEventHandler, useRef } from 'react';
 
 const HomePage: NextPage = () => {
+  const refEmail = useRef<HTMLInputElement>(null);
+  const refFeedback = useRef<HTMLTextAreaElement>(null);
+
+  const onSubmit:  FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    const email = refEmail.current?.value;
+    const feedback = refFeedback.current?.value;
+    console.log(email, feedback);
+
+    fetch('/api/feedback', {
+      method: 'POST',
+      body: JSON.stringify({ email: email, feedback: feedback }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(r => r.json())
+      .then(d => console.log(d));
+  }
+
   return (
     <>
       <Head>
@@ -11,14 +31,14 @@ const HomePage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>Home page</h1>
-      <form>
+      <form onSubmit={onSubmit}>
         <div>
           <label htmlFor="email">Email</label>
-          <input type="email" id="email"/>
+          <input type="email" id="email" ref={refEmail}/>
         </div>
         <div>
           <label htmlFor="email">Your Feedback</label>
-          <textarea rows={5}></textarea>
+          <textarea rows={5} ref={refFeedback}></textarea>
         </div>
         <button>Send Feedback</button>
       </form>
