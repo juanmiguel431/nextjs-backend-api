@@ -4,11 +4,11 @@ import * as fs from 'fs/promises';
 import path from 'path';
 import { Feedback, GetResponse, PostResponse } from '@/models';
 
-const buildFeedbackPath = () => {
+export const buildFeedbackPath = () => {
   return path.join(process.cwd(), 'data', 'feedback.json');
 };
 
-const extractFeedback = async (filePath: string) => {
+export const extractFeedback = async (filePath: string) => {
   const fileData = await fs.readFile(filePath, 'utf-8');
   return JSON.parse(fileData) as Feedback[];
 }
