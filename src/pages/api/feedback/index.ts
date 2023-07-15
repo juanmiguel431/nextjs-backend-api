@@ -15,7 +15,7 @@ export const extractFeedback = async (filePath: string) => {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<GetResponse | PostResponse>
+  res: NextApiResponse<GetResponse<Feedback[]> | PostResponse>
 ) {
   if (req.method === 'GET') {
     const filePath = buildFeedbackPath();

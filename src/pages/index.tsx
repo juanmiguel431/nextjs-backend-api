@@ -26,7 +26,7 @@ const HomePage: NextPage = () => {
 
   const loadFeedback = () => {
     fetch('/api/feedback').then(r => r.json())
-      .then((d: GetResponse) => setFeedbacks(d.data));
+      .then((d: GetResponse<Feedback[]>) => setFeedbacks(d.data));
   }
 
   return (

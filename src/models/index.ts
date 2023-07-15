@@ -9,7 +9,7 @@ export interface PostResponse {
   data: Feedback;
 }
 
-export interface GetResponse {
+export interface GetResponse<T> {
   message: string;
-  data: Feedback[];
+  data: T;
 }
